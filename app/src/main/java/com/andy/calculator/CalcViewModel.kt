@@ -78,7 +78,7 @@ class CalcViewModel(app: Application) : AndroidViewModel(app) {
 
     private val before: String? get() = tokens.getOrNull(cursor - 1)
 
-    fun setCursor(i: Int) {
+    fun moveCursor(i: Int) {
         if (showingResult) showingResult = false
         cursor = i.coerceIn(0, tokens.size)
     }

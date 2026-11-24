@@ -233,7 +233,7 @@ private fun CalcDisplay(vm: CalcViewModel, modifier: Modifier) {
                                 onTap = { pos ->
                                     layout?.let { l ->
                                         val off = l.getOffsetForPosition(pos)
-                                        vm.setCursor(currentDisplay.tokenForChar(off))
+                                        vm.moveCursor(currentDisplay.tokenForChar(off))
                                     }
                                 },
                                 onLongPress = { menu = true }
