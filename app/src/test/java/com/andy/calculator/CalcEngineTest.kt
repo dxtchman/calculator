@@ -9,7 +9,7 @@ class CalcEngineTest {
     private fun toks(s: String): List<String> {
         val multi = listOf(
             "sin⁻¹(", "cos⁻¹(", "tan⁻¹(", "sinh⁻¹(", "cosh⁻¹(", "tanh⁻¹(", "sinh(", "cosh(", "tanh(",
-            "sin(", "cos(", "tan(", "ln(", "log(", "√(", "∛(", "abs(", "e^(", "2^(", "^(", "(−"
+            "sin(", "cos(", "tan(", "ln(", "log(", "√(", "∛(", "abs(", "e^(", "^(", "(−"
         )
         val out = ArrayList<String>()
         var i = 0

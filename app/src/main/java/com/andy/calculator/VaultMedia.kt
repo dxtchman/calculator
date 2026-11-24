@@ -67,6 +67,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -240,7 +241,8 @@ fun MediaViewer(app: AppViewModel, media: List<VaultItem>, start: Int, onClose: 
         LaunchedEffect(Unit) { onClose() }
         return
     }
-    val pager = rememberPagerState(initialPage = start.coerceIn(0, media.size - 1)) { media.size }
+    val latest by rememberUpdatedState(media)
+    val pager = rememberPagerState(initialPage = start.coerceIn(0, media.size - 1)) { latest.size }
     var playing by remember { mutableStateOf<VaultItem?>(null) }
     var zoomed by remember { mutableStateOf(false) }
     var chrome by remember { mutableStateOf(true) }
@@ -258,10 +260,10 @@ fun MediaViewer(app: AppViewModel, media: List<VaultItem>, start: Int, onClose: 
         HorizontalPager(
             state = pager,
             userScrollEnabled = !zoomed,
-            key = { media[it].id },
+            key = { latest.getOrNull(it)?.id ?: it.toString() },
             modifier = Modifier.fillMaxSize()
         ) { page ->
-            val item = media[page]
+            val item = latest.getOrNull(page) ?: return@HorizontalPager
             if (item.isVideo) {
                 Box(
                     Modifier.fillMaxSize().clickable { chrome = !chrome },

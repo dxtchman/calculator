@@ -31,7 +31,7 @@ jobs:
       - name: Report errors
         if: failure()
         run: |
-          msg=$(grep -E "^e: |FAILED|expected:|AssertionError|at com.andy" build.log | head -60 | sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g')
+          msg=$(grep -E "^e: |FAILED|expected|Failure|Error|Test.kt:" build.log | head -60 | sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g')
           echo "::error title=Build failed::$msg"
 
       - name: Rename APK
